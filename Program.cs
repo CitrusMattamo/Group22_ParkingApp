@@ -28,7 +28,8 @@ namespace Group22_ParkingApp
                 try
                 {
                     var context = services.GetRequiredService<ParkingAppContext>();
-                    context.Database.EnsureCreated();
+                    //context.Database.EnsureCreated();
+                    DbInitializer.Initialize(context);
                     // DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)
