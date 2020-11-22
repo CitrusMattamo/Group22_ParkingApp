@@ -29,7 +29,25 @@ namespace Group22_ParkingApp.Data
             context.Members.AddRange(members);
             context.SaveChanges();
 
-           
+            var parkingLots = new ParkingLot[]
+            {
+                new ParkingLot{Name = "South 1", AvailableSpaces = 50, TotalSpaces = 150},
+                new ParkingLot{Name = "North 1", AvailableSpaces = 4, TotalSpaces = 50},
+                new ParkingLot{Name = "South 2", AvailableSpaces = 400, TotalSpaces = 500}
+            };
+
+            context.ParkingLots.AddRange(parkingLots);
+            context.SaveChanges();
+
+            var reservations = new Reservation[]
+            {
+                new Reservation{MemberId = 1, LotId= 1},
+                new Reservation{MemberId = 1, LotId = 3},
+                new Reservation{MemberId = 2, LotId = 2}
+            };
+
+            context.Reservations.AddRange(reservations);
+            context.SaveChanges();
         }
     }
 }

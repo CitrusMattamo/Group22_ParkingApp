@@ -28,7 +28,13 @@ namespace Group22_ParkingApp.Pages.Members
                 return NotFound();
             }
 
-            Member = await _context.Members.FirstOrDefaultAsync(m => m.Id == id);
+
+            Member = await _context.Members
+                .Include(m => m.Reservations)
+                .ThenInclude (r => r.ParkingLot)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(i => i.Id == id);
+                
 
             if (Member == null)
             {

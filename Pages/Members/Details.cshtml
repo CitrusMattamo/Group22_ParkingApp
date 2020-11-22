@@ -29,6 +29,28 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Member.LicenseNo)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Member.Reservations)
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Parking Lot</th>
+                    <th>Res_Id</th>
+                </tr>
+                @foreach (var item in Model.Member.Reservations)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ParkingLot.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
     </dl>
 </div>
 <div>
