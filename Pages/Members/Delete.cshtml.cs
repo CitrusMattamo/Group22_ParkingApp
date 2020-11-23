@@ -21,19 +21,26 @@ namespace Group22_ParkingApp.Pages.Members
 
         [BindProperty]
         public Member Member { get; set; }
+        public string ErrorMessage { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Member = await _context.Members.FirstOrDefaultAsync(m => m.Id == id);
+            Member = await _context.Members
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (Member == null)
             {
                 return NotFound();
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ErrorMessage = "Delete failed. Try again";
             }
             return Page();
         }
@@ -45,15 +52,25 @@ namespace Group22_ParkingApp.Pages.Members
                 return NotFound();
             }
 
-            Member = await _context.Members.FindAsync(id);
+            var member = await _context.Members.FindAsync(id);
 
-            if (Member != null)
+            if (member == null)
             {
-                _context.Members.Remove(Member);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
 
-            return RedirectToPage("./Index");
+            try
+            {
+                _context.Members.Remove(member);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
+            catch (DbUpdateException /* ex */)
+            {
+                //Log the error (uncomment ex variable name and write a log.)
+                return RedirectToAction("./Delete",
+                                     new { id, saveChangesError = true });
+            }
         }
     }
 }

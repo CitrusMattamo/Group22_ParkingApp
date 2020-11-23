@@ -31,15 +31,19 @@ namespace Group22_ParkingApp.Pages.Members
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            var emptyMember = new Member();
+
+            if (await TryUpdateModelAsync<Member>(
+                emptyMember,
+                "member",   // Prefix for form value.
+                m => m.FirstName, m => m.LastName, m => m.Email, m => m.LicenseNo))
             {
-                return Page();
+                _context.Members.Add(emptyMember);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
             }
 
-            _context.Members.Add(Member);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            return Page();
         }
     }
 }

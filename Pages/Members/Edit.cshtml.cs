@@ -30,7 +30,7 @@ namespace Group22_ParkingApp.Pages.Members
                 return NotFound();
             }
 
-            Member = await _context.Members.FirstOrDefaultAsync(m => m.Id == id);
+            Member = await _context.Members.FindAsync(id);
 
             if (Member == null)
             {
@@ -41,32 +41,24 @@ namespace Group22_ParkingApp.Pages.Members
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (!ModelState.IsValid)
+            var memberToUpdate = await _context.Members.FindAsync(id);
+            if (memberToUpdate == null)
             {
-                return Page();
+                return NotFound();
             }
 
-            _context.Attach(Member).State = EntityState.Modified;
-
-            try
+            if (await TryUpdateModelAsync<Member>(
+        memberToUpdate,
+        "member",
+        m => m.FirstName, m => m.LastName, m => m.LicenseNo, m=> m.Email))
             {
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MemberExists(Member.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
+            return Page();
         }
 
         private bool MemberExists(int id)
