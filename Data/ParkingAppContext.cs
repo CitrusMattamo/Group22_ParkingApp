@@ -16,6 +16,7 @@ namespace Group22_ParkingApp.Data
 
         public DbSet<Member> Members { get; set; }
         public DbSet<ParkingLot> ParkingLots { get; set; }
+        public DbSet<ParkingSpot> ParkingSpots { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<NonMember> NonMembers { get; set; }
 
