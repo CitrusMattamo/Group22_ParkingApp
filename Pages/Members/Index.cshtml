@@ -2,7 +2,7 @@
 @model Group22_ParkingApp.Pages.Members.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Members";
 }
 
 <h1>Members</h1>
@@ -14,10 +14,15 @@
     <thead>
         <tr>
             <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort">
+                    @Html.DisplayNameFor(model => model.Member[0].LastName)
+                </a>
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Member[0].FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Member[0].LastName)
+                @Html.DisplayNameFor(model => model.Member[0].FirstName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Member[0].LicenseNo)
@@ -32,10 +37,10 @@
 @foreach (var item in Model.Member) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastName)
+                @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LicenseNo)

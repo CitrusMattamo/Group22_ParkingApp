@@ -18,12 +18,33 @@ namespace Group22_ParkingApp.Pages.Members
         {
             _context = context;
         }
-
+        public string NameSort { get; set; }
+        public string CurrentFilter { get; set; }
+        public string CurrentSort { get; set; }
         public IList<Member> Member { get;set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string sortOrder)
         {
             Member = await _context.Members.ToListAsync();
+            // using System;
+            NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            IQueryable<Member> membersIQ = from m in _context.Members
+                                             select m;
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    membersIQ = membersIQ.OrderByDescending(s => s.LastName);
+                    break;
+              
+                default:
+                    membersIQ = membersIQ.OrderBy(m => m.LastName);
+                    break;
+            }
+
+            Member = await membersIQ.AsNoTracking().ToListAsync();
         }
     }
+
 }
