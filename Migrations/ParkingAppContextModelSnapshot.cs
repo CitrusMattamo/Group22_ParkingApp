@@ -95,16 +95,13 @@ namespace Group22_ParkingApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("LotId")
-                        .HasColumnType("int");
-
                     b.Property<int>("MemberId")
                         .HasColumnType("int");
 
                     b.Property<int?>("NonMemberId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ParkingLotId")
+                    b.Property<int>("ParkingLotId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -132,7 +129,9 @@ namespace Group22_ParkingApp.Migrations
 
                     b.HasOne("Group22_ParkingApp.Models.ParkingLot", "ParkingLot")
                         .WithMany("Reservations")
-                        .HasForeignKey("ParkingLotId");
+                        .HasForeignKey("ParkingLotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

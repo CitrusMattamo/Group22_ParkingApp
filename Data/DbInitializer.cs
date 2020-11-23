@@ -41,9 +41,9 @@ namespace Group22_ParkingApp.Data
 
             var reservations = new Reservation[]
             {
-                new Reservation{MemberId = 1, LotId= 1},
-                new Reservation{MemberId = 1, LotId = 3},
-                new Reservation{MemberId = 2, LotId = 2}
+                new Reservation{MemberId = 1, ParkingLotId= 1},
+                new Reservation{MemberId = 1, ParkingLotId = 3},
+                new Reservation{MemberId = 2, ParkingLotId = 2}
             };
 
             context.Reservations.AddRange(reservations);

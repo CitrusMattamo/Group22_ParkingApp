@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Group22_ParkingApp.Migrations
 {
     [DbContext(typeof(ParkingAppContext))]
-    [Migration("20201121002749_Members")]
-    partial class Members
+    [Migration("20201123011750_kjv1")]
+    partial class kjv1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0")
+                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -42,7 +42,31 @@ namespace Group22_ParkingApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Member");
+                    b.ToTable("Members");
+                });
+
+            modelBuilder.Entity("Group22_ParkingApp.Models.NonMember", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LicenseNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NonMembers");
                 });
 
             modelBuilder.Entity("Group22_ParkingApp.Models.ParkingLot", b =>
@@ -63,7 +87,7 @@ namespace Group22_ParkingApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ParkingLot");
+                    b.ToTable("ParkingLots");
                 });
 
             modelBuilder.Entity("Group22_ParkingApp.Models.Reservation", b =>
@@ -73,22 +97,24 @@ namespace Group22_ParkingApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("LotId")
-                        .HasColumnType("int");
-
                     b.Property<int>("MemberId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ParkingLotId")
+                    b.Property<int?>("NonMemberId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ParkingLotId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MemberId");
 
+                    b.HasIndex("NonMemberId");
+
                     b.HasIndex("ParkingLotId");
 
-                    b.ToTable("Reservation");
+                    b.ToTable("Reservations");
                 });
 
             modelBuilder.Entity("Group22_ParkingApp.Models.Reservation", b =>
@@ -99,9 +125,15 @@ namespace Group22_ParkingApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Group22_ParkingApp.Models.NonMember", null)
+                        .WithMany("Reservations")
+                        .HasForeignKey("NonMemberId");
+
                     b.HasOne("Group22_ParkingApp.Models.ParkingLot", "ParkingLot")
                         .WithMany("Reservations")
-                        .HasForeignKey("ParkingLotId");
+                        .HasForeignKey("ParkingLotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
