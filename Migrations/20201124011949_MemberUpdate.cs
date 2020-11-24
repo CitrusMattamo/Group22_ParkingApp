@@ -2,7 +2,7 @@
 
 namespace Group22_ParkingApp.Migrations
 {
-    public partial class stuff : Migration
+    public partial class MemberUpdate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,10 +12,10 @@ namespace Group22_ParkingApp.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    LicenseNo = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true)
+                    FirstName = table.Column<string>(maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(maxLength: 50, nullable: false),
+                    LicenseNo = table.Column<string>(maxLength: 8, nullable: false),
+                    Email = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
