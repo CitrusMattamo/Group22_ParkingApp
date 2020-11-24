@@ -48,6 +48,16 @@ namespace Group22_ParkingApp.Data
 
             context.Reservations.AddRange(reservations);
             context.SaveChanges();
+
+            var parkingSpots = new ParkingSpot[]
+           {
+                new ParkingSpot{isAvailible = true, ParkingLotId= 1},
+                new ParkingSpot{isAvailible = true, ParkingLotId = 3},
+                new ParkingSpot{isAvailible = true, ParkingLotId = 2}
+           };
+
+            context.ParkingSpots.AddRange(parkingSpots);
+            context.SaveChanges();
         }
     }
 }

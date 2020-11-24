@@ -2,7 +2,7 @@
 
 namespace Group22_ParkingApp.Migrations
 {
-    public partial class kjv1 : Migration
+    public partial class stuff : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -54,6 +54,26 @@ namespace Group22_ParkingApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ParkingSpots",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    isAvailible = table.Column<bool>(nullable: false),
+                    ParkingLotId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ParkingSpots", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ParkingSpots_ParkingLots_ParkingLotId",
+                        column: x => x.ParkingLotId,
+                        principalTable: "ParkingLots",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reservations",
                 columns: table => new
                 {
@@ -87,6 +107,11 @@ namespace Group22_ParkingApp.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ParkingSpots_ParkingLotId",
+                table: "ParkingSpots",
+                column: "ParkingLotId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reservations_MemberId",
                 table: "Reservations",
                 column: "MemberId");
@@ -104,6 +129,9 @@ namespace Group22_ParkingApp.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ParkingSpots");
+
             migrationBuilder.DropTable(
                 name: "Reservations");
 

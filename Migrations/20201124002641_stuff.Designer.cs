@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Group22_ParkingApp.Migrations
 {
     [DbContext(typeof(ParkingAppContext))]
-    [Migration("20201123011750_kjv1")]
-    partial class kjv1
+    [Migration("20201124002641_stuff")]
+    partial class stuff
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,6 +90,26 @@ namespace Group22_ParkingApp.Migrations
                     b.ToTable("ParkingLots");
                 });
 
+            modelBuilder.Entity("Group22_ParkingApp.Models.ParkingSpot", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ParkingLotId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isAvailible")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParkingLotId");
+
+                    b.ToTable("ParkingSpots");
+                });
+
             modelBuilder.Entity("Group22_ParkingApp.Models.Reservation", b =>
                 {
                     b.Property<int>("Id")
@@ -115,6 +135,15 @@ namespace Group22_ParkingApp.Migrations
                     b.HasIndex("ParkingLotId");
 
                     b.ToTable("Reservations");
+                });
+
+            modelBuilder.Entity("Group22_ParkingApp.Models.ParkingSpot", b =>
+                {
+                    b.HasOne("Group22_ParkingApp.Models.ParkingLot", "ParkingLot")
+                        .WithMany("ParkingSpots")
+                        .HasForeignKey("ParkingLotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Group22_ParkingApp.Models.Reservation", b =>

@@ -80,15 +80,10 @@ namespace Group22_ParkingApp.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ParkingSpotId")
-                        .HasColumnType("int");
-
                     b.Property<int>("TotalSpaces")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ParkingSpotId");
 
                     b.ToTable("ParkingLots");
                 });
@@ -100,10 +95,15 @@ namespace Group22_ParkingApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ParkingLotId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("isAvailible")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParkingLotId");
 
                     b.ToTable("ParkingSpots");
                 });
@@ -135,11 +135,13 @@ namespace Group22_ParkingApp.Migrations
                     b.ToTable("Reservations");
                 });
 
-            modelBuilder.Entity("Group22_ParkingApp.Models.ParkingLot", b =>
+            modelBuilder.Entity("Group22_ParkingApp.Models.ParkingSpot", b =>
                 {
-                    b.HasOne("Group22_ParkingApp.Models.ParkingSpot", null)
-                        .WithMany("ParkingLots")
-                        .HasForeignKey("ParkingSpotId");
+                    b.HasOne("Group22_ParkingApp.Models.ParkingLot", "ParkingLot")
+                        .WithMany("ParkingSpots")
+                        .HasForeignKey("ParkingLotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Group22_ParkingApp.Models.Reservation", b =>
