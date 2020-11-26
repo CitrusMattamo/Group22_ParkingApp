@@ -108,7 +108,7 @@ namespace Group22_ParkingApp.Migrations
                     b.Property<int>("ParkingLotId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("isAvailible")
+                    b.Property<bool>("isAvailable")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");

@@ -59,7 +59,7 @@ namespace Group22_ParkingApp.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    isAvailible = table.Column<bool>(nullable: false),
+                    isAvailable = table.Column<bool>(nullable: false),
                     ParkingLotId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

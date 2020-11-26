@@ -51,9 +51,9 @@ namespace Group22_ParkingApp.Data
 
             var parkingSpots = new ParkingSpot[]
            {
-                new ParkingSpot{isAvailible = true, ParkingLotId= 1},
-                new ParkingSpot{isAvailible = true, ParkingLotId = 3},
-                new ParkingSpot{isAvailible = true, ParkingLotId = 2}
+                new ParkingSpot{isAvailable = true, ParkingLotId= 1},
+                new ParkingSpot{isAvailable = true, ParkingLotId = 3},
+                new ParkingSpot{isAvailable = true, ParkingLotId = 2}
            };
 
             context.ParkingSpots.AddRange(parkingSpots);
