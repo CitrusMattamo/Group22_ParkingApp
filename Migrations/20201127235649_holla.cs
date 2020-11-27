@@ -2,7 +2,7 @@
 
 namespace Group22_ParkingApp.Migrations
 {
-    public partial class MemberUpdate : Migration
+    public partial class holla : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,7 +46,9 @@ namespace Group22_ParkingApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
                     TotalSpaces = table.Column<int>(nullable: false),
-                    AvailableSpaces = table.Column<int>(nullable: false)
+                    AvailableSpaces = table.Column<int>(nullable: false),
+                    MembershipFee = table.Column<int>(nullable: false),
+                    ReservationFee = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,11 +62,18 @@ namespace Group22_ParkingApp.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     isAvailible = table.Column<bool>(nullable: false),
-                    ParkingLotId = table.Column<int>(nullable: false)
+                    ParkingLotId = table.Column<int>(nullable: false),
+                    MemberId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ParkingSpots", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ParkingSpots_Members_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "Members",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ParkingSpots_ParkingLots_ParkingLotId",
                         column: x => x.ParkingLotId,
@@ -105,6 +114,11 @@ namespace Group22_ParkingApp.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ParkingSpots_MemberId",
+                table: "ParkingSpots",
+                column: "MemberId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ParkingSpots_ParkingLotId",

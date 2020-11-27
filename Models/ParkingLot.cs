@@ -11,6 +11,8 @@ namespace Group22_ParkingApp.Models
         public string Name { get; set; }
         public int TotalSpaces { get; set; }
         public int AvailableSpaces { get; set; }
+        public int MembershipFee { get; set; }
+        public int ReservationFee { get; set; }
 
         public ICollection<Reservation> Reservations { get; set; }
         public ICollection<ParkingSpot> ParkingSpots { get; set; }

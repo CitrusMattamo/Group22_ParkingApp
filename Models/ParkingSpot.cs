@@ -10,7 +10,8 @@ namespace Group22_ParkingApp.Models
         public int Id { get; set; }
         public bool isAvailible { get; set; }
         public int ParkingLotId { get; set; }
-
+        public int MemberId { get; set; }
         public ParkingLot ParkingLot { get; set; }
+        public Member Member { get; set; }
     }
 }
