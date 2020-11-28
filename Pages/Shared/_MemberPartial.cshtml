@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    var isAuthorized = User.IsInRole(Constants.ParkingStaffRole) ||
+                       User.IsInRole(Constants.ParkingAdministratorsRole);
+}
+
+    <ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User) && isAuthorized)
+        {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-page="/Members/Index">Members</a>
+        </li>
+        }
+    </ul>

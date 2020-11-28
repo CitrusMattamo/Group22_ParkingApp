@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Group22_ParkingApp.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Group22_ParkingApp.Data
 {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Group22_ParkingApp.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,8 @@ namespace Group22_ParkingApp.Data
             : base(options)
         {
         }
+
+        public DbSet<Member> Members { get; set; }
+
     }
 }

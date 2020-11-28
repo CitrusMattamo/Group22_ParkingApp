@@ -1,4 +1,6 @@
-﻿using Group22_ParkingApp.Data;
+﻿using Group22_ParkingApp.Authorization;
+using Group22_ParkingApp.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ParkingManager.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +33,32 @@ namespace Group22_ParkingApp
             services.AddDbContext<IdentityContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(
+                options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<IdentityContext>();
+
             services.AddRazorPages();
+            
+            services.AddAuthorization(options =>
+            {
+                options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+            });
+
+            // Authorization handlers.
+            services.AddScoped<IAuthorizationHandler,
+                                  MemberIsOwnerAuthorizationHandler>();
+
+            services.AddSingleton<IAuthorizationHandler,
+                                  ParkingAdministratorsAuthorizationHandler>();
+
+            services.AddSingleton<IAuthorizationHandler,
+                                  ParkingStaffAuthorizationHandler>();
+
+            services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, 
+                               UserClaimsPrincipalFactory<IdentityUser, IdentityRole>>();
 
             services.AddDbContext<ParkingAppContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ParkingAppContext")));

@@ -11,7 +11,7 @@
     <a asp-page="Create">Create New</a>
 </p>
 
-<form asp-page="./Index" method="get">
+@*<form asp-page="./Index" method="get">
     <div class="form-actions no-color">
         <p>
             Find by name:
@@ -20,7 +20,7 @@
             <a asp-page="./Index">Back to full List</a>
         </p>
     </div>
-</form>
+</form>*@
 
 <table class="table">
     <thead>
@@ -32,13 +32,13 @@
                 </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Member[0].FirstName)
+                @Html.DisplayNameFor(model => model.Members[0].FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Member[0].LicenseNo)
+                @Html.DisplayNameFor(model => model.Members[0].LicenseNo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Member[0].Email)
+                @Html.DisplayNameFor(model => model.Members[0].Email)
             </th>
             <th></th>
         </tr>
@@ -68,7 +68,7 @@
         }
     </tbody>
 </table>
-@{
+@*@{
     var prevDisabled = !Model.Members.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.Members.HasNextPage ? "disabled" : "";
 }
@@ -86,4 +86,4 @@
    asp-route-currentFilter="@Model.CurrentFilter"
    class="btn btn-primary @nextDisabled">
     Next
-</a>
+</a>*@

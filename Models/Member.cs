@@ -10,6 +10,10 @@ namespace Group22_ParkingApp.Models
     public class Member
     {
         public int Id { get; set; }
+
+        // staff user ID from AspNetUser table
+        public string StaffId { get; set; }
+
         [Required]
         [StringLength(50)]
         [Display(Name = "First Name")]
@@ -34,7 +38,16 @@ namespace Group22_ParkingApp.Models
             }
         }
 
+        public MemberStatus Status { get; set; }
+
         public ICollection<Reservation> Reservations { get; set; }
 
+    }
+
+    public enum MemberStatus
+    {
+        Submitted,
+        Approved,
+        Rejected
     }
 }
