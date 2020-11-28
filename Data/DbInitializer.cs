@@ -22,7 +22,7 @@ namespace Group22_ParkingApp.Data
             var members = new Member[]
             {
                 new Member{FirstName="Carson",LastName="Alexander",LicenseNo="abc1234",Email = "hi@hotmail.com"},
-                new Member{FirstName="Suhain=b",LastName="Shahaib",LicenseNo="1234567",Email = "holla@hotmail.com"}
+                new Member{FirstName="Suhaib",LastName="Shahaib",LicenseNo="1234567",Email = "holla@hotmail.com"}
 
             };
 
@@ -51,9 +51,9 @@ namespace Group22_ParkingApp.Data
 
             var parkingSpots = new ParkingSpot[]
            {
-                new ParkingSpot{isAvailable = true, ParkingLotId= 1},
-                new ParkingSpot{isAvailable = true, ParkingLotId = 3},
-                new ParkingSpot{isAvailable = true, ParkingLotId = 2}
+                new ParkingSpot{isAvailable = true, ParkingLotId= 1, MemberId =1},
+                new ParkingSpot{isAvailable = true, ParkingLotId = 3, MemberId =1},
+                new ParkingSpot{isAvailable = true, ParkingLotId = 2, MemberId =2}
            };
 
             context.ParkingSpots.AddRange(parkingSpots);

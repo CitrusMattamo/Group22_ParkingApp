@@ -30,6 +30,7 @@ namespace Group22_ParkingApp.Models
         [StringLength(100)]
         [Display(Name = "Email Address")]
         public string Email { get; set; }
+
         public string FullName
         {
             get
@@ -41,7 +42,7 @@ namespace Group22_ParkingApp.Models
         public MemberStatus Status { get; set; }
 
         public ICollection<Reservation> Reservations { get; set; }
-
+        public ICollection<ParkingSpot> ParkingSpots { get; set; }
     }
 
     public enum MemberStatus
