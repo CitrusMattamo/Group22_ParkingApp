@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Group22_ParkingApp.Migrations
 {
     [DbContext(typeof(ParkingAppContext))]
-    [Migration("20201127235649_holla")]
-    partial class holla
+    [Migration("20201128023025_seeding")]
+    partial class seeding
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

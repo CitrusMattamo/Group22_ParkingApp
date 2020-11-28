@@ -2,7 +2,7 @@
 
 namespace Group22_ParkingApp.Migrations
 {
-    public partial class holla : Migration
+    public partial class seeding : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,7 +61,7 @@ namespace Group22_ParkingApp.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    isAvailible = table.Column<bool>(nullable: false),
+                    isAvailable = table.Column<bool>(nullable: false),
                     ParkingLotId = table.Column<int>(nullable: false),
                     MemberId = table.Column<int>(nullable: false)
                 },
