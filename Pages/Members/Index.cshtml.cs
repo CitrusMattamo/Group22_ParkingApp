@@ -28,56 +28,53 @@ namespace Group22_ParkingApp.Pages.Members
         public string CurrentFilter { get; set; }
         public string CurrentSort { get; set; }
 
-        public IList<Member> Members { get;set; }
+        //public IList<Member> Members { get;set; }
 
-        //public PaginatedList<Member> Members { get; set; }
+        public PaginatedList<Member> Members { get; set; }
 
 
 
         public async Task OnGetAsync(string sortOrder, string currentFilter, string searchString, int? pageIndex)
         {
-            //CurrentSort = sortOrder;
-            // using System;
-            //NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            //if (searchString != null)
-            //{
-            //    pageIndex = 1;
-            //}
-            //else
-            //{
-            //    searchString = currentFilter;
-            //}
-            //CurrentFilter = searchString;
-
-            //IQueryable<Member> membersIQ = from m in _context.Members
-            //                                 select m;
-            //if (!String.IsNullOrEmpty(searchString))
-            //{
-            //    membersIQ = membersIQ.Where(m => m.LastName.Contains(searchString)
-            //                           || m.FirstName.Contains(searchString));
-            //}
-            //switch (sortOrder)
-            //{
-            //    case "name_desc":
-            //        membersIQ = membersIQ.OrderByDescending(s => s.LastName);
-            //        break;
-
-            //    default:
-            //        membersIQ = membersIQ.OrderBy(m => m.LastName);
-            //        break;
-            //}
-
-            //int pageSize = 3;
-            //Members = await PaginatedList<Member>.CreateAsync(
-            //    membersIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
-
-            var members = from m in Context.Members
-                          select m;
+            CurrentSort = sortOrder;
+            NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            if (searchString != null)
+            {
+                pageIndex = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            CurrentFilter = searchString;
 
             var isAuthorized = User.IsInRole(Constants.ParkingStaffRole) ||
                 User.IsInRole(Constants.ParkingAdministratorsRole);
 
-            var currentUserId = UserManager.GetUserId(User);
+            var currentUserId = UserManager.GetUserId(User);       
+            
+            IQueryable<Member> members = from m in Context.Members
+                          select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                members = members.Where(m => m.LastName.Contains(searchString)
+                                       || m.FirstName.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    members = members.OrderByDescending(s => s.LastName);
+                    break;
+
+                default:
+                    members = members.OrderBy(m => m.LastName);
+                    break;
+            }
+
+            int pageSize = 3;
+
+
 
             if (!isAuthorized)
             {
@@ -85,8 +82,8 @@ namespace Group22_ParkingApp.Pages.Members
                     || m.StaffId == currentUserId);
             }
 
-            Members = await members
-                .ToListAsync();
+            Members = await PaginatedList<Member>.CreateAsync(
+                members.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
     }
 

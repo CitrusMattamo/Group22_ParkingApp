@@ -11,7 +11,7 @@
     <a asp-page="Create">Create New</a>
 </p>
 
-@*<form asp-page="./Index" method="get">
+<form asp-page="./Index" method="get">
     <div class="form-actions no-color">
         <p>
             Find by name:
@@ -20,7 +20,7 @@
             <a asp-page="./Index">Back to full List</a>
         </p>
     </div>
-</form>*@
+</form>
 
 <table class="table">
     <thead>
@@ -60,15 +60,22 @@
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    @if (User.IsInRole(Constants.ParkingAdministratorsRole))
+                    {
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> <text> | </text>
+                    }
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                    @if (User.IsInRole(Constants.ParkingAdministratorsRole))
+                    {
+                        <text> | </text>
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    }
                 </td>
             </tr>
         }
     </tbody>
 </table>
-@*@{
+@{
     var prevDisabled = !Model.Members.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.Members.HasNextPage ? "disabled" : "";
 }
@@ -86,4 +93,4 @@
    asp-route-currentFilter="@Model.CurrentFilter"
    class="btn btn-primary @nextDisabled">
     Next
-</a>*@
+</a>

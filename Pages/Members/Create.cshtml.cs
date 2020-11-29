@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Group22_ParkingApp.Data;
 using Group22_ParkingApp.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Group22_ParkingApp.Pages.Members
 {
-    public class CreateModel : PageModel
+    public class CreateModel : DI_BasePageModel
     {
-        private readonly Group22_ParkingApp.Data.ParkingAppContext _context;
-
-        public CreateModel(Group22_ParkingApp.Data.ParkingAppContext context)
+        public CreateModel(
+            IdentityContext context,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager)
+            : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
         public IActionResult OnGet()
@@ -38,8 +41,9 @@ namespace Group22_ParkingApp.Pages.Members
                 "member",   // Prefix for form value.
                 m => m.FirstName, m => m.LastName, m => m.Email, m => m.LicenseNo))
             {
-                _context.Members.Add(emptyMember);
-                await _context.SaveChangesAsync();
+                Context.Members.Add(emptyMember);
+                await Context.SaveChangesAsync();
+
                 return RedirectToPage("./Index");
             }
 
