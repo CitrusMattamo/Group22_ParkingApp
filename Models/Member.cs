@@ -30,6 +30,7 @@ namespace Group22_ParkingApp.Models
         [StringLength(100)]
         [Display(Name = "Email Address")]
         public string Email { get; set; }
+        public string CreditCard { get; set; }
 
         public string FullName
         {

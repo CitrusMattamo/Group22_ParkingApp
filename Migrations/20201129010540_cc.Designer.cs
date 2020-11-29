@@ -4,14 +4,16 @@ using Group22_ParkingApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Group22_ParkingApp.Migrations
 {
     [DbContext(typeof(ParkingAppContext))]
-    partial class ParkingAppContextModelSnapshot : ModelSnapshot
+    [Migration("20201129010540_cc")]
+    partial class cc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

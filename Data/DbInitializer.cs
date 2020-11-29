@@ -11,7 +11,7 @@ namespace Group22_ParkingApp.Data
     {
         public static void Initialize(ParkingAppContext context)
         {
-            context.Database.EnsureCreated();
+            //context.Database.EnsureCreated();
 
             // Look for any students.
             if (context.Members.Any())
