@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Group22_ParkingApp.Migrations
 {
     [DbContext(typeof(ParkingAppContext))]
-    [Migration("20201126194157_userID_Status")]
-    partial class userID_Status
+    [Migration("20201128195114_identity1")]
+    partial class identity1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -93,8 +93,14 @@ namespace Group22_ParkingApp.Migrations
                     b.Property<int>("AvailableSpaces")
                         .HasColumnType("int");
 
+                    b.Property<int>("MembershipFee")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ReservationFee")
+                        .HasColumnType("int");
 
                     b.Property<int>("TotalSpaces")
                         .HasColumnType("int");
@@ -111,6 +117,9 @@ namespace Group22_ParkingApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("MemberId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ParkingLotId")
                         .HasColumnType("int");
 
@@ -118,6 +127,8 @@ namespace Group22_ParkingApp.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MemberId");
 
                     b.HasIndex("ParkingLotId");
 
@@ -153,6 +164,12 @@ namespace Group22_ParkingApp.Migrations
 
             modelBuilder.Entity("Group22_ParkingApp.Models.ParkingSpot", b =>
                 {
+                    b.HasOne("Group22_ParkingApp.Models.Member", "Member")
+                        .WithMany("ParkingSpots")
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Group22_ParkingApp.Models.ParkingLot", "ParkingLot")
                         .WithMany("ParkingSpots")
                         .HasForeignKey("ParkingLotId")
