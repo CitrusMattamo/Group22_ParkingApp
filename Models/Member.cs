@@ -13,6 +13,7 @@ namespace Group22_ParkingApp.Models
 
         // staff user ID from AspNetUser table
         public string StaffId { get; set; }
+        public string MemberId { get; set; }
 
         [Required]
         [StringLength(50)]

@@ -26,7 +26,7 @@ namespace Group22_ParkingApp.Pages.Reservations
         public string CurrentFilter { get; set; }
         public string CurrentSort { get; set; }
 
-        public IList<Reservation> Reservation { get;set; }
+        public IList<Reservation> Reservations { get;set; }
 
         public async Task OnGetAsync()
         {
@@ -34,19 +34,23 @@ namespace Group22_ParkingApp.Pages.Reservations
                 User.IsInRole(Constants.ParkingAdministratorsRole);
 
             var currentUserId = UserManager.GetUserId(User);
-            
-            
-           // IList<Reservation> reservations = from r in Context.Reservations
-            //                                  select r;
-            /*
+
             if (!isAuthorized)
             {
-                reservations = reservations.Where(r => r.MemberId == currentUserId )
+                Reservations = await Context.Reservations
+                    .Include(r => r.Member)
+                    .Include(r => r.ParkingLot)
+                    .Where(r => r.Member.MemberId == currentUserId)
+                    .ToListAsync();
             }
-            */
-            Reservation = await Context.Reservations
-                .Include(r => r.Member)
-                .Include(r => r.ParkingLot).ToListAsync();
+            else
+            {
+                Reservations = await Context.Reservations
+                    .Include(r => r.Member)
+                    .Include(r => r.ParkingLot)
+                    .ToListAsync();
+            }
+
         }
     }
 }
