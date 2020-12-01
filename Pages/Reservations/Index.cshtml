@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Resevations</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -26,10 +26,10 @@
 @foreach (var item in Model.Reservation) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ParkingLot.Id)
+                @Html.DisplayFor(modelItem => item.ParkingLot.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Member.Email)
+                @Html.DisplayFor(modelItem => item.Member.FullName)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

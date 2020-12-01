@@ -38,8 +38,8 @@ namespace Group22_ParkingApp.Pages.Reservations
             {
                 return NotFound();
             }
-           ViewData["MemberId"] = new SelectList(_context.Members, "Id", "Email");
-           ViewData["ParkingLotId"] = new SelectList(_context.ParkingLots, "Id", "Id");
+           ViewData["MemberId"] = new SelectList(_context.Members, "Id", "FullName");
+           ViewData["ParkingLotId"] = new SelectList(_context.ParkingLots, "Id", "Name");
             return Page();
         }
 
