@@ -52,7 +52,7 @@ namespace Group22_ParkingApp.Pages.Members
             if (await TryUpdateModelAsync<Member>(
         memberToUpdate,
         "member",
-        m => m.FirstName, m => m.LastName, m => m.LicenseNo, m=> m.Email))
+        m => m.FirstName, m => m.LastName, m => m.LicenseNo, m=> m.Email, m=>m.CreditCard))
             {
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");

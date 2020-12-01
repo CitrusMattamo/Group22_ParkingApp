@@ -39,7 +39,7 @@ namespace Group22_ParkingApp.Pages.ParkingSpots
                 return NotFound();
             }
            ViewData["MemberId"] = new SelectList(_context.Members, "Id", "Email");
-           ViewData["ParkingLotId"] = new SelectList(_context.ParkingLots, "Id", "Id");
+           ViewData["ParkingLotId"] = new SelectList(_context.ParkingLots, "Id", "Name");
             return Page();
         }
 

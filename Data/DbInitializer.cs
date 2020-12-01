@@ -21,8 +21,18 @@ namespace Group22_ParkingApp.Data
 
             var members = new Member[]
             {
-                new Member{FirstName="Carson",LastName="Alexander",LicenseNo="abc1234",Email = "hi@hotmail.com"},
-                new Member{FirstName="Suhaib",LastName="Shahaib",LicenseNo="1234567",Email = "holla@hotmail.com"}
+                new Member{FirstName="Carson",LastName="Alexander",LicenseNo="abc1234",Email = "hi@hotmail.com", CreditCard = "1234567891000000"},
+                new Member{FirstName="Suhaib",LastName="Shahaib",LicenseNo="1234567",Email = "holla@hotmail.com", CreditCard = "1234567891000001"}
+
+            };
+
+            context.Members.AddRange(members);
+            context.SaveChanges();
+
+            var nonmembers = new NonMember[]
+            {
+                new NonMember{FirstName="Carson",LastName="Alexander",LicenseNo="abc1234",Email = "hi@hotmail.com",},
+                new NonMember{FirstName="Suhaib",LastName="Shahaib",LicenseNo="1234567",Email = "holla@hotmail.com", }
 
             };
 
