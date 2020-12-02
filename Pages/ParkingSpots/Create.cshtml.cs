@@ -22,7 +22,7 @@ namespace Group22_ParkingApp.Pages.ParkingSpots
         public IActionResult OnGet()
         {
         ViewData["MemberId"] = new SelectList(_context.Members, "Id", "Email");
-        ViewData["ParkingLotId"] = new SelectList(_context.ParkingLots, "Id", "Id");
+        ViewData["ParkingLotId"] = new SelectList(_context.ParkingLots, "Id", "Name");
             return Page();
         }
 

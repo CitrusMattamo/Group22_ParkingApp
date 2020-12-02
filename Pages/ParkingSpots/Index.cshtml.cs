@@ -10,6 +10,7 @@ using Group22_ParkingApp.Models;
 
 namespace Group22_ParkingApp.Pages.ParkingSpots
 {
+
     public class IndexModel : PageModel
     {
         private readonly Group22_ParkingApp.Data.ParkingAppContext _context;

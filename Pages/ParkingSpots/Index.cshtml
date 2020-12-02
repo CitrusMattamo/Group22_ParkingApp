@@ -22,6 +22,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.ParkingSpot[0].Member)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParkingSpot[0].ParkingLot.MembershipFee)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -36,6 +39,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Member.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParkingLot.MembershipFee)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
