@@ -7,11 +7,17 @@
                        User.IsInRole(Constants.ParkingAdministratorsRole);
 }
 
-    <ul class="navbar-nav">
-        @if (SignInManager.IsSignedIn(User) && isAuthorized)
-        {
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User) && isAuthorized)
+    {
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-page="/Members/Index">Members</a>
         </li>
-        }
-    </ul>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-page="/Members/Index">My Details</a>
+        </li>
+    }
+</ul>

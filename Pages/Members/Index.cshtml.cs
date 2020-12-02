@@ -78,7 +78,7 @@ namespace Group22_ParkingApp.Pages.Members
 
             if (!isAuthorized)
             {
-                members = members.Where(m => m.Status == MemberStatus.Approved
+                members = members.Where(m => m.Id == 3
                     || m.StaffId == currentUserId);
             }
 
