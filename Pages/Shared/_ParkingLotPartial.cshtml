@@ -2,11 +2,15 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-page="/ParkingLots/Index">ParkingLots</a>
-    </li>
+@{
+    var isAuthorized = User.IsInRole(Constants.ParkingAdministratorsRole);
 }
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User) && isAuthorized)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-page="/ParkingLots/Index">ParkingLots</a>
+        </li>
+    }
 </ul>
