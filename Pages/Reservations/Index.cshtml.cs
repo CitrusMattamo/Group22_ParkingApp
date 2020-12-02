@@ -26,7 +26,7 @@ namespace Group22_ParkingApp.Pages.Reservations
         public string CurrentFilter { get; set; }
         public string CurrentSort { get; set; }
 
-        public IList<Reservation> Reservations { get;set; }
+        public IList<Reservation> Reservations { get; set; }
 
         public async Task OnGetAsync()
         {

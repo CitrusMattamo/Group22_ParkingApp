@@ -11,6 +11,9 @@ namespace Group22_ParkingApp.Models
         public int ParkingLotId { get; set; }
         public int MemberId { get; set; }
 
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+
         public ParkingLot ParkingLot { get; set; }
         public Member Member { get; set; }
     }

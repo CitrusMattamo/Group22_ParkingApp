@@ -7,22 +7,43 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Group22_ParkingApp.Data;
 using Group22_ParkingApp.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Group22_ParkingApp.Authorization;
 
 namespace Group22_ParkingApp.Pages.Reservations
 {
-    public class CreateModel : PageModel
+    public class CreateModel : DI_BasePageModel
     {
-        private readonly Group22_ParkingApp.Data.ParkingAppContext _context;
-
-        public CreateModel(Group22_ParkingApp.Data.ParkingAppContext context)
+        public CreateModel(
+            IdentityContext context,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager)
+            : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
         public IActionResult OnGet()
         {
-        ViewData["MemberId"] = new SelectList(_context.Members, "Id", "Email");
-        ViewData["ParkingLotId"] = new SelectList(_context.ParkingLots, "Id", "Id");
+
+            var isAuthorized = User.IsInRole(Constants.ParkingStaffRole) ||
+                User.IsInRole(Constants.ParkingAdministratorsRole);
+
+            var currentUserId = UserManager.GetUserId(User);
+
+            //todo - get memberId from Model
+            var memberId = 3;
+
+            if (!isAuthorized)
+            {
+                ViewData["MemberId"] = new SelectList(Context.Members, "Id", "Email", memberId);
+            }
+            else
+            {
+                ViewData["MemberId"] = new SelectList(Context.Members, "Id", "Email");
+            }
+            
+            ViewData["ParkingLotId"] = new SelectList(Context.ParkingLots, "Id", "Name");
             return Page();
         }
 
@@ -38,8 +59,8 @@ namespace Group22_ParkingApp.Pages.Reservations
                 return Page();
             }
 
-            _context.Reservations.Add(Reservation);
-            await _context.SaveChangesAsync();
+            Context.Reservations.Add(Reservation);
+            await Context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

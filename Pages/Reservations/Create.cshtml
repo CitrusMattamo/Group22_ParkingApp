@@ -3,6 +3,11 @@
 
 @{
     ViewData["Title"] = "Create";
+    var memberName = Model.User.Identity.Name;
+    //todo - get memberId from Model 
+    var mrPark = "park@me.com";
+
+
 }
 
 <h1>Create</h1>
@@ -19,7 +24,25 @@
             </div>
             <div class="form-group">
                 <label asp-for="Reservation.MemberId" class="control-label"></label>
-                <select asp-for="Reservation.MemberId" class ="form-control" asp-items="ViewBag.MemberId"></select>
+                @*todo - disable if Member*@
+                @if (memberName == mrPark)
+                {
+                    <select asp-for="Reservation.MemberId" class="form-control" asp-items="ViewBag.MemberId" disabled></select>
+                }
+                else
+                {
+                    <select asp-for="Reservation.MemberId" class="form-control" asp-items="ViewBag.MemberId"></select>
+                }
+            </div>
+            <div class="form-group">
+                <label asp-for="Reservation.StartTime" class="control-label"></label>
+                <input asp-for="Reservation.StartTime" class="form-control" />
+                <span asp-validation-for="Reservation.StartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reservation.EndTime" class="control-label"></label>
+                <input asp-for="Reservation.EndTime" class="form-control" />
+                <span asp-validation-for="Reservation.EndTime" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
